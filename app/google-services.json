@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "382517422816",
+    "firebase_url": "https://fir-authui-9c7da.firebaseio.com",
+    "project_id": "fir-authui-9c7da",
+    "storage_bucket": "fir-authui-9c7da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382517422816:android:c8cbd709cdf609f5",
+        "android_client_info": {
+          "package_name": "com.example.devendra.firebaseauthui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382517422816-pdurhcjdk8sj1amknvqiadbecb8ddjut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.devendra.firebaseauthui",
+            "certificate_hash": "1f69caa9cccc934007f8215cca9adb3d0d3b91fb"
+          }
+        },
+        {
+          "client_id": "382517422816-45kf8f3d9k2gd6h3hedgip10hg2o3p5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZrrC0PbTAx_qs7M1izfxQCwvJvDIx6Iw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382517422816-45kf8f3d9k2gd6h3hedgip10hg2o3p5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
