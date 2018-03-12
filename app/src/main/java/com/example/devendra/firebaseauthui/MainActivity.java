@@ -91,16 +91,15 @@ public class MainActivity extends AppCompatActivity {
 //                        user.updateProfile(profileUpdates);
                     //Toast.makeText(MainActivity.this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-                    checkPhoneUser(user,firebaseAuth);
+                    Intent i = new Intent(MainActivity.this , SellCrop.class);
+                    startActivity(i);
                 }
                 else {
                         Toast.makeText(MainActivity.this, "I have name", Toast.LENGTH_SHORT).show();
                         startActivityForResult(
                                 AuthUI.getInstance()
                                         .createSignInIntentBuilder()
-                                        .setIsSmartLockEnabled(false)
                                         .setAvailableProviders(Arrays.asList(
-                                                new AuthUI.IdpConfig.EmailBuilder().build(),
                                                 new AuthUI.IdpConfig.PhoneBuilder().build(),
                                                 new AuthUI.IdpConfig.GoogleBuilder().build()
                                         ))
@@ -116,45 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    private void checkPhoneUser(FirebaseUser user, final FirebaseAuth firebaseAuth) {
-        if (user.getDisplayName().equals("")) {
 
-            Toast.makeText(MainActivity.this, "I don't have name", Toast.LENGTH_SHORT).show();
-            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(MainActivity.this);
-            View mView = layoutInflaterAndroid.inflate(R.layout.pop_layout, null, false);
-            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(MainActivity.this);
-            alertDialogBuilderUserInput.setView(mView);
-
-            final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.etPop);
-
-
-            alertDialogBuilderUserInput
-                    .setCancelable(false)
-                    .setPositiveButton("Set User Name", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            final String input = userInputDialogEditText.getText().toString();
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(input).build();
-                            FirebaseUser u = firebaseAuth.getCurrentUser();
-                            u.updateProfile(profileUpdates);
-
-                            Toast.makeText(MainActivity.this, input, Toast.LENGTH_SHORT).show();
-
-
-                        }
-                    });
-
-
-            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-            alertDialogAndroid.show();
-
-
-        } else {
-            tvUserName.setText(user.getDisplayName());
-
-        }
-    }
 
 
 //Auth helping method for AuthStateListener
@@ -187,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+
+
     }
 
     @Override
@@ -194,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
+
 
 
 
