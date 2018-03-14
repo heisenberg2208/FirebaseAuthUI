@@ -2,6 +2,7 @@ package com.example.devendra.firebaseauthui;
 
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -81,6 +82,27 @@ public class SellCrop extends AppCompatActivity {
 
             }
         });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Mypref",MODE_PRIVATE);
+        String lon=sharedPreferences.getString("lon","");
+        String lat  = sharedPreferences.getString("lat","");
+
+        tvLoc.setText(""+lat+" "+lon);
+
+        String f_id =FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Farmer f = new Farmer(f_id,"name",lat,lon);
+        FirebaseDatabase.getInstance().getReference().child("Farmer").child(f_id).setValue(f).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(SellCrop.this, "farmer added", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SellCrop.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 //        btnModerator.setOnClickListener(new View.OnClickListener() {
 //            @Override
