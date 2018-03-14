@@ -4,6 +4,7 @@ package com.example.devendra.firebaseauthui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -91,8 +92,21 @@ public class MainActivity extends AppCompatActivity {
 //                        user.updateProfile(profileUpdates);
                     //Toast.makeText(MainActivity.this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-                    Intent i = new Intent(MainActivity.this , SellCrop.class);
-                    startActivity(i);
+                    SharedPreferences preferences  = getSharedPreferences("Mypref",MODE_PRIVATE);
+                    String type = preferences.getString("type","");
+                    if(type.equals("farmer"))
+                    {
+                        Intent i = new Intent(MainActivity.this , SellCrop.class);
+                        startActivity(i);
+                        finish();
+                    }
+                    else if(type.equals("buyer"))
+                    {
+                        Intent i = new Intent(MainActivity.this,Buyer.class);
+                        startActivity(i);
+                        finish();
+                    }
+
                 }
                 else {
                         Toast.makeText(MainActivity.this, "I have name", Toast.LENGTH_SHORT).show();

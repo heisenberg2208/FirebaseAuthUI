@@ -37,23 +37,33 @@
         android:layout_marginTop="55dp"
         android:text="Sell" />
 
-    <Button
-        android:id="@+id/btnModerator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSell"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
-        android:text="Go To Moderator" />
+    <!--<Button-->
+        <!--android:id="@+id/btnModerator"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/btnSell"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="27dp"-->
+        <!--android:text="Go To Moderator" />-->
 
     <ImageView
         android:id="@+id/imgUpload"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_below="@+id/btnModerator"
+        android:layout_below="@+id/btnSell"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp" />
 
+    <TextView
+        android:id="@+id/tvLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgUpload"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:text="" />
 
 </RelativeLayout>
+
+
 </ScrollView>

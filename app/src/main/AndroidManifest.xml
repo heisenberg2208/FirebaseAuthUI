@@ -10,15 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".SellCrop" />
+        <activity android:name=".ModeratorHome" />
+        <activity android:name=".VerifyCrop" />
+        <activity android:name=".Portal" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".SellCrop" />
-        <activity android:name=".ModeratorHome" />
-        <activity android:name=".VerifyCrop"></activity>
+        <activity android:name=".Buyer"></activity>
     </application>
 
 </manifest>

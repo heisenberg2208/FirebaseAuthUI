@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -29,9 +30,10 @@ public class SellCrop extends AppCompatActivity {
     private static String img_url;
     private EditText etCropName;
     private Button btnSell;
-    private Button btnModerator;
+//    private Button btnModerator;
     private Button btnUpload;
     private ImageView imgUpload;
+    private TextView tvLoc;
 
 
     Request r;
@@ -45,9 +47,10 @@ public class SellCrop extends AppCompatActivity {
 
         etCropName = (EditText) findViewById(R.id.etCropName);
         btnSell = (Button) findViewById(R.id.btnSell);
-        btnModerator = (Button) findViewById(R.id.btnModerator);
+      //  btnModerator = (Button) findViewById(R.id.btnModerator);
         //btnUpload = (Button) findViewById(R.id.btnUpload);
         imgUpload = (ImageView) findViewById(R.id.imgUpload);
+        tvLoc = (TextView) findViewById(R.id.tvLoc);
 
 
 //        btnUpload.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +60,9 @@ public class SellCrop extends AppCompatActivity {
 //
 //            }
 //        });
+
+
+
 
 
         btnSell.setOnClickListener(new View.OnClickListener() {
@@ -76,14 +82,14 @@ public class SellCrop extends AppCompatActivity {
             }
         });
 
-        btnModerator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SellCrop.this, ModeratorHome.class);
-                startActivity(i);
-
-            }
-        });
+//        btnModerator.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(SellCrop.this, ModeratorHome.class);
+//                startActivity(i);
+//
+//            }
+//        });
 
 
     }
