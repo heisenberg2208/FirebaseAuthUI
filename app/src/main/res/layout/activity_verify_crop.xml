@@ -9,12 +9,11 @@
 
     <ImageView
         android:id="@+id/imgCrop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+        android:layout_marginTop="58dp" />
 
     <TextView
         android:id="@+id/tvImageTitle"
@@ -46,6 +45,15 @@
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:text="Reject" />
+
+    <ProgressBar
+        android:id="@+id/pbLoad"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnReject"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp" />
 
 
 </RelativeLayout>

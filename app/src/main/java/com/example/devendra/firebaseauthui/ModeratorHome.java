@@ -83,7 +83,7 @@ public class ModeratorHome extends AppCompatActivity {
                 in.putExtra("crop_name",r.getCrop_name());
                 in.putExtra("status",r.getStatus());
                 in.putExtra("f_id",r.getF_id());
-                in.putExtra("iamge",r.getImage());
+                in.putExtra("image",r.getImage());
                 startActivity(in);
 
 
