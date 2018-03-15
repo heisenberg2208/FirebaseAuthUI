@@ -43,7 +43,7 @@ public class Portal extends AppCompatActivity
 
 
     TextView tvLatitude, tvLongitude, tvTime;
-    Button btnBuyer,btnFarmer;
+    Button btnBuyer,btnFarmer,btnChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class Portal extends AppCompatActivity
         tvTime = (TextView) findViewById(R.id.tvTime);
         btnBuyer = (Button) findViewById(R.id.btnBuyer);
         btnFarmer = (Button) findViewById(R.id.btnFarmer);
+        btnChat  = (Button) findViewById(R.id.btnChat);
 
         getLocationUpdates();
         btnFarmer.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +87,15 @@ public class Portal extends AppCompatActivity
                 editor.commit();
                 startActivity(i);
 
+            }
+        });
+
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Portal.this , ChatActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }

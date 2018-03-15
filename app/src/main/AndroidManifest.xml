@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".SellCrop" />
         <activity android:name=".ModeratorHome" />
         <activity android:name=".VerifyCrop" />
@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Buyer" />
-        <activity android:name=".BuyerList"></activity>
+        <activity android:name=".BuyerList" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>
