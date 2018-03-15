@@ -70,10 +70,14 @@ public class SellCrop extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpeg");
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+                Intent i = new Intent(SellCrop.this ,  BuyerList.class);
+                startActivity(i);
+
+
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.setType("image/jpeg");
+//                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+//                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
 
 
 
@@ -90,8 +94,8 @@ public class SellCrop extends AppCompatActivity {
         tvLoc.setText(""+lat+" "+lon);
 
         String f_id =FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Farmer f = new Farmer(f_id,"name",lat,lon);
-        FirebaseDatabase.getInstance().getReference().child("Farmer").child(f_id).setValue(f).addOnSuccessListener(new OnSuccessListener<Void>() {
+        User u = new User(f_id,"name",lat,lon);
+        FirebaseDatabase.getInstance().getReference().child("Farmer").child(f_id).setValue(u).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(SellCrop.this, "farmer added", Toast.LENGTH_SHORT).show();

@@ -32,8 +32,8 @@ public class Buyer extends AppCompatActivity {
 
 
         String f_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        BuyerObj b = new BuyerObj(f_id,"name",lat,lon);
-        FirebaseDatabase.getInstance().getReference().child("Buyer").child(f_id).setValue(b).addOnSuccessListener(new OnSuccessListener<Void>() {
+        User u = new User(f_id,"name",lat,lon);
+        FirebaseDatabase.getInstance().getReference().child("Buyer").child(f_id).setValue(u).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(Buyer.this, "Buyer added", Toast.LENGTH_SHORT).show();
