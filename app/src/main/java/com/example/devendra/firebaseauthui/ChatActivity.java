@@ -135,7 +135,6 @@ public class ChatActivity extends AppCompatActivity {
 
         //Intializing Firebase Component
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("messages");
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseStorage = FirebaseStorage.getInstance();
         mChatPhotosReference = mFirebaseStorage.getReference().child("chat_photos");
@@ -148,6 +147,17 @@ public class ChatActivity extends AppCompatActivity {
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
         mSendButton = (ImageButton) findViewById(R.id.sendButton);
 
+
+        Intent in = getIntent();
+        String f_id = in.getStringExtra("farmer");
+        String b_id = in.getStringExtra("buyer");
+        String c_id = b_id+f_id;
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("links").child(b_id+f_id);
+        Link l = new Link(b_id,f_id,c_id);
+        databaseReference.setValue(l);
+
+
+        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("messages").child(c_id);
         // Initialize message ListView and its adapter
         final List<FriendlyMessage> friendlyMessages = new ArrayList<>();
         mMessageAdapter = new MessageAdapter(this, R.layout.item_message, friendlyMessages);

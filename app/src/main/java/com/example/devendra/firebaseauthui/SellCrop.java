@@ -90,11 +90,13 @@ public class SellCrop extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("Mypref",MODE_PRIVATE);
         String lon=sharedPreferences.getString("lon","");
         String lat  = sharedPreferences.getString("lat","");
+        String name = sharedPreferences.getString("user","");
+
 
         tvLoc.setText(""+lat+" "+lon);
 
         String f_id =FirebaseAuth.getInstance().getCurrentUser().getUid();
-        User u = new User(f_id,"name",lat,lon);
+        User u = new User(f_id,name,lat,lon);
         FirebaseDatabase.getInstance().getReference().child("Farmer").child(f_id).setValue(u).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

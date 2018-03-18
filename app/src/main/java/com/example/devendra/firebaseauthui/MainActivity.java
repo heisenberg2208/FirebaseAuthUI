@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private TextView tvUserName;
-
+    private EditText etGetName;
+    private Button btnSubmitName;
 
 
 
@@ -66,13 +67,20 @@ public class MainActivity extends AppCompatActivity {
 
         btnSignOut = (Button) findViewById(R.id.btnSignOut);
         tvUserName = (TextView) findViewById(R.id.tvUserName);
+        etGetName = (EditText) findViewById(R.id.etGetName);
+        btnSubmitName = (Button) findViewById(R.id.btnSubmitName);
+
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AuthUI.getInstance().signOut(MainActivity.this);
+
+
+
             }
         });
+
 
         //Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -92,24 +100,15 @@ public class MainActivity extends AppCompatActivity {
 //                        user.updateProfile(profileUpdates);
                     //Toast.makeText(MainActivity.this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences preferences  = getSharedPreferences("Mypref",MODE_PRIVATE);
-                    String type = preferences.getString("type","");
-                    if(type.equals("farmer"))
-                    {
-                        Intent i = new Intent(MainActivity.this , SellCrop.class);
-                        startActivity(i);
-                        finish();
-                    }
-                    else if(type.equals("buyer"))
-                    {
-                        Intent i = new Intent(MainActivity.this,Buyer.class);
-                        startActivity(i);
-                        finish();
-                    }
+
+
+                    Intent in = new Intent(MainActivity.this , GetUserName.class);
+                    startActivity(in);
+                    finish();
 
                 }
                 else {
-                        Toast.makeText(MainActivity.this, "I have name", Toast.LENGTH_SHORT).show();
+
                         startActivityForResult(
                                 AuthUI.getInstance()
                                         .createSignInIntentBuilder()

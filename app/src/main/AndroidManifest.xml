@@ -25,7 +25,9 @@
         </activity>
         <activity android:name=".Buyer" />
         <activity android:name=".BuyerList" />
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".FarmerList" />
+        <activity android:name=".GetUserName"></activity>
     </application>
 
 </manifest>
