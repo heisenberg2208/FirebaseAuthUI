@@ -65,8 +65,15 @@ public class Portal extends AppCompatActivity
 
                 SharedPreferences.Editor editor= getSharedPreferences("Mypref",MODE_PRIVATE).edit();
                 editor.putString("type","farmer");
-                editor.putString("lon",tvLongitude.getText().toString());
-                editor.putString("lat",tvLatitude.getText().toString());
+                String lon=tvLongitude.getText().toString();
+                if(lon.equals(""))
+                    lon="73.093948";
+                editor.putString("lon",lon);
+
+                String lat =tvLatitude.getText().toString();
+                if(lat.equals(""))
+                    lat="19.209401";
+                editor.putString("lat",lat);
                 editor.commit();
 
                 startActivity(i);
@@ -82,8 +89,15 @@ public class Portal extends AppCompatActivity
                 SharedPreferences.Editor editor= getSharedPreferences("Mypref",MODE_PRIVATE).edit();
                 editor.putString("type","buyer");
 
-                editor.putString("lon",tvLongitude.getText().toString());
-                editor.putString("lat",tvLatitude.getText().toString());
+                String lon=tvLongitude.getText().toString();
+                if(lon.equals(""))
+                    lon="73.093948";
+                editor.putString("lon",lon);
+
+                String lat =tvLatitude.getText().toString();
+                if(lat.equals(""))
+                    lat="19.209401";
+                editor.putString("lat",lat);
                 editor.commit();
                 startActivity(i);
 

@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -33,6 +34,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,37 +48,65 @@ public class FarmerList extends AppCompatActivity {
 //    RecyclerView recyclerView;
     private UserAdapter userAdapter;
 
+    private TextView tvFarmerList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_list);
+
+
+        tvFarmerList = (TextView) findViewById(R.id.tvFarmerList);
+
+        Intent in = getIntent();
+        String crop = in.getStringExtra("crop");
+        tvFarmerList.setText("Showing Farmer's who are selling "+crop);
+
+
         lvFarmers=(ListView)findViewById(R.id.lvFarmers);
 
         final ArrayList<User> users = new ArrayList<>();
         userAdapter = new UserAdapter(this, R.layout.user_adapter,users);
         lvFarmers.setAdapter(userAdapter);
 
-        DatabaseReference b = FirebaseDatabase.getInstance().getReference().child("Farmer");
-        b.addChildEventListener(new ChildEventListener() {
+        DatabaseReference r = FirebaseDatabase.getInstance().getReference().child("Requests");
+
+        Query q = r.orderByChild("crop_name").equalTo(crop);
+        q.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                User u = dataSnapshot.getValue(User.class);
-//               Log.d("Devendra",u.getU_id());
-                userAdapter.add(u);
-            }
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                ArrayList<String> alF_id = new ArrayList<>();
+                for(DataSnapshot child:dataSnapshot.getChildren())
+                {
+                    Request r = child.getValue(Request.class);
+                    alF_id.add(r.getF_id());
+                    Log.d("Cropfarmer",r.getF_id());
+                }
 
-            }
+                for(int i=0; i < alF_id.size() ; i++)
+                {
+                    String f_id = alF_id.get(i);
+                    DatabaseReference farmers = FirebaseDatabase.getInstance().getReference().child("Farmer");
+                    Query q = farmers.orderByChild("u_id").equalTo(f_id);
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    q.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-            }
+                            for(DataSnapshot child:dataSnapshot.getChildren())
+                            {
+                                User u = child.getValue(User.class);
+                                userAdapter.add(u);
+                            }
+                        }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
 
             }
 
@@ -84,6 +115,35 @@ public class FarmerList extends AppCompatActivity {
 
             }
         });
+
+//        b.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                User u = dataSnapshot.getValue(User.class);
+////               Log.d("Devendra",u.getU_id());
+//                userAdapter.add(u);
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         lvFarmers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

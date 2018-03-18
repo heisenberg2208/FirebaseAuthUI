@@ -143,7 +143,7 @@ public class SellCrop extends AppCompatActivity {
 
                         String crop_name = etCropName.getText().toString();
                         String f_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        databaseReference = FirebaseDatabase.getInstance().getReference().child(f_id);
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Requests").child(f_id);
                         r = new Request(crop_name,f_id ,"pending",img_url);
                         databaseReference.setValue(r).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

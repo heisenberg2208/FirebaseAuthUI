@@ -8,6 +8,7 @@
     tools:context="com.example.devendra.firebaseauthui.FarmerList">
 
     <TextView
+        android:id="@+id/tvFarmerList"
         android:text="Farmer's List"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
