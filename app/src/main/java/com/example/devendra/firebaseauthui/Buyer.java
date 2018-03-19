@@ -86,7 +86,9 @@ public class Buyer extends AppCompatActivity {
                 for(DataSnapshot child:dataSnapshot.getChildren())
                 {
                     Request r = child.getValue(Request.class);
-                    alCrops.add(r.getCrop_name());
+                    String crop=r.getCrop_name();
+                    if(! alCrops.contains(crop))
+                        alCrops.add(crop);
                 }
 
                 alCrops.add(0,"Click here to select crops");
