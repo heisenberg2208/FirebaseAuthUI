@@ -3,10 +3,13 @@ package com.example.devendra.firebaseauthui;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +28,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class SellCrop extends AppCompatActivity {
 
     private static final int RC_PHOTO_PICKER =123 ;
@@ -40,6 +47,9 @@ public class SellCrop extends AppCompatActivity {
     Request r;
 
     private DatabaseReference databaseReference;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,44 +73,25 @@ public class SellCrop extends AppCompatActivity {
 //        });
 
 
-
-
-
-        btnSell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent i = new Intent(SellCrop.this ,  BuyerList.class);
-                startActivity(i);
-
-
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.setType("image/jpeg");
-//                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-//                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
-
-
-
-
-
-
-            }
-        });
-
         SharedPreferences sharedPreferences = getSharedPreferences("Mypref",MODE_PRIVATE);
         String lon=sharedPreferences.getString("lon","");
         String lat  = sharedPreferences.getString("lat","");
         String name = sharedPreferences.getString("user","");
+        String request = sharedPreferences.getString("request","");
+        String add = sharedPreferences.getString("add","");
+        Log.d("Debug","Got Lan Lot");
 
-
-        tvLoc.setText(""+lat+" "+lon);
+        tvLoc.setText(add);
+        Log.d("Debug","Got addr");
 
         String f_id =FirebaseAuth.getInstance().getCurrentUser().getUid();
-        User u = new User(f_id,name,lat,lon);
+        User u = new User(f_id,name,lat,lon,add);
         FirebaseDatabase.getInstance().getReference().child("Farmer").child(f_id).setValue(u).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(SellCrop.this, "farmer added", Toast.LENGTH_SHORT).show();
+                Log.d("Debug","Added farmer");
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -108,6 +99,46 @@ public class SellCrop extends AppCompatActivity {
                 Toast.makeText(SellCrop.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
+
+        btnSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Intent i = new Intent(SellCrop.this ,  BuyerList.class);
+//                startActivity(i);
+
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/jpeg");
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+                Log.d("Debug","Inside button sell");
+
+
+
+
+
+            }
+        });
+
+
+
+
+
+
+//        if(! request.equals(""))
+//        {
+//            Intent in = new Intent(SellCrop.this,Waiting.class);
+//            startActivity(in);
+//        }
+
+
+
+
+
+
+
+
 
 
 //        btnModerator.setOnClickListener(new View.OnClickListener() {
@@ -139,8 +170,9 @@ public class SellCrop extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         img_url = downloadUrl.toString();
+                        Log.d("Debug","Inside on Activity Result");
 
-
+                        tvLoc.setText("request is being uploaded");
                         String crop_name = etCropName.getText().toString();
                         String f_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         databaseReference = FirebaseDatabase.getInstance().getReference().child("Requests").child(f_id);
@@ -152,14 +184,23 @@ public class SellCrop extends AppCompatActivity {
 //                                        .load(r.getImage())
 //                                        .into(imgUpload);
 
-
+                                Log.d("Debug","Request added");
                                 Picasso.get().load(img_url).into(imgUpload);
                                 Toast.makeText(SellCrop.this, "Request has been added", Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences.Editor editor = getSharedPreferences("Mypref",MODE_PRIVATE).edit();
+                                editor.putString("request","true");
+                                editor.commit();
+
+                                Intent in = new Intent(SellCrop.this,Waiting.class);
+                                startActivity(in);
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(SellCrop.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                Log.d("Debug","request not added");
                             }
                         });
 

@@ -27,7 +27,8 @@
         <activity android:name=".BuyerList" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".FarmerList" />
-        <activity android:name=".GetUserName"></activity>
+        <activity android:name=".GetUserName" />
+        <activity android:name=".Waiting"></activity>
     </application>
 
 </manifest>

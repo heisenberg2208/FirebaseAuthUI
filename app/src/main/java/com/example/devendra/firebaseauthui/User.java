@@ -6,20 +6,28 @@ package com.example.devendra.firebaseauthui;
 
 public class User {
 
-    String u_id,uname , ulat , ulon;
+    String u_id,uname , ulat , ulon,add;
 
     public User()
     {
 
     }
 
-    public User(String u_id, String uname, String ulat, String ulon) {
+    public User(String u_id, String uname, String ulat, String ulon,String add) {
         this.u_id = u_id;
         this.uname = uname;
         this.ulat = ulat;
         this.ulon = ulon;
+        this.add = add;
     }
 
+    public String getAdd() {
+        return add;
+    }
+
+    public void setAdd(String add) {
+        this.add = add;
+    }
 
     public String getU_id() {
         return u_id;

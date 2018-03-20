@@ -8,7 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,18 +35,43 @@ import com.google.android.gms.location.LocationServices;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class Portal extends AppCompatActivity
 {
 
+    public String getLoc(String lat, String lon)
+    {
+        Geocoder g = new Geocoder(Portal.this, Locale.ENGLISH);
+
+        List<Address> addressList = null;
+        try {
+            addressList = g.getFromLocation(Double.parseDouble(lat) , Double.parseDouble(lon) ,1);
+            Address address = addressList.get(0);
+            String add =
+                    address.getCountryName()+" "+
+                            address.getAdminArea()+" "+
+                            address.getSubAdminArea()+" "+
+                            address.getLocality()+" "+
+                            address.getSubLocality();
+            return add;
+
+        } catch (IOException e) {
+            return "Some error while getting address";
+        }
+
+    }
 
 
-
-    TextView tvLatitude, tvLongitude, tvTime;
+    TextView tvLatitude, tvLongitude, tvTime,tvAddress;
     Button btnBuyer,btnFarmer,btnChat;
-
+    static String lon;
+    static String lat;
+    static String add;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,27 +80,34 @@ public class Portal extends AppCompatActivity
         tvLatitude = (TextView) findViewById(R.id.tvLatitude);
         tvLongitude = (TextView) findViewById(R.id.tvLongitude);
         tvTime = (TextView) findViewById(R.id.tvTime);
+        tvAddress = (TextView) findViewById(R.id.tvAddress);
         btnBuyer = (Button) findViewById(R.id.btnBuyer);
         btnFarmer = (Button) findViewById(R.id.btnFarmer);
         btnChat  = (Button) findViewById(R.id.btnChat);
 
         getLocationUpdates();
+
+        final SharedPreferences.Editor editor= getSharedPreferences("Mypref",MODE_PRIVATE).edit();
+
+        lon=tvLongitude.getText().toString();
+        if(lon.equals(""))
+            lon="73.093948";
+        tvLongitude.setText(lon);
+
+        lat =tvLatitude.getText().toString();
+        if(lat.equals(""))
+            lat="19.209401";
+        tvLatitude.setText(lat);
+
+
+
         btnFarmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Portal.this ,MainActivity.class);
 
-                SharedPreferences.Editor editor= getSharedPreferences("Mypref",MODE_PRIVATE).edit();
-                editor.putString("type","farmer");
-                String lon=tvLongitude.getText().toString();
-                if(lon.equals(""))
-                    lon="73.093948";
-                editor.putString("lon",lon);
 
-                String lat =tvLatitude.getText().toString();
-                if(lat.equals(""))
-                    lat="19.209401";
-                editor.putString("lat",lat);
+                editor.putString("type","farmer");
                 editor.commit();
 
                 startActivity(i);
@@ -86,18 +120,16 @@ public class Portal extends AppCompatActivity
             public void onClick(View view) {
                 Intent i = new Intent(Portal.this , MainActivity.class);
 
-                SharedPreferences.Editor editor= getSharedPreferences("Mypref",MODE_PRIVATE).edit();
+                String lon1=tvLongitude.getText().toString();
+                editor.putString("lon",lon1);
+
+
+                String lat1 = tvLatitude.getText().toString();
+                editor.putString("lat",lat1);
+
+                String add = tvAddress.getText().toString();
+                editor.putString("add",add);
                 editor.putString("type","buyer");
-
-                String lon=tvLongitude.getText().toString();
-                if(lon.equals(""))
-                    lon="73.093948";
-                editor.putString("lon",lon);
-
-                String lat =tvLatitude.getText().toString();
-                if(lat.equals(""))
-                    lat="19.209401";
-                editor.putString("lat",lat);
                 editor.commit();
                 startActivity(i);
 
@@ -108,6 +140,18 @@ public class Portal extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Portal.this , ChatActivity.class);
+
+
+                String lon1=tvLongitude.getText().toString();
+                editor.putString("lon",lon1);
+
+                String lat1 = tvLatitude.getText().toString();
+                editor.putString("lat",lat1);
+
+                String add = tvAddress.getText().toString();
+                editor.putString("add",add);
+
+
                 startActivity(i);
                 finish();
             }
@@ -117,8 +161,8 @@ public class Portal extends AppCompatActivity
     private void getLocationUpdates() {
 
         LocationRequest request = new LocationRequest();
-        request.setInterval(10000);
-        request.setFastestInterval(5000);
+        request.setInterval(100);
+        request.setFastestInterval(50);
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(this);
         int permission = ContextCompat.checkSelfPermission(this,
@@ -130,8 +174,13 @@ public class Portal extends AppCompatActivity
                     Location location = locationResult.getLastLocation();
                     if (location != null) {
                         Log.d("Devendra", "location update " + location.getLatitude() + " " + location.getLatitude());
-                        tvLatitude.setText(Double.toString(location.getLatitude()));
-                        tvLongitude.setText(Double.toString(location.getLongitude()));
+                        lat=String.valueOf(location.getLatitude());
+                        tvLatitude.setText(lat);
+                        lon=String.valueOf(location.getLongitude());
+
+                        tvLongitude.setText(lon);
+                        add = getLoc(lat,lon);
+                        tvAddress.setText(add);
                     }
                 }
             }, null);

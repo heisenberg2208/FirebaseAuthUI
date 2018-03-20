@@ -1,6 +1,8 @@
 package com.example.devendra.firebaseauthui;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -39,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class FarmerList extends AppCompatActivity {
@@ -49,6 +53,8 @@ public class FarmerList extends AppCompatActivity {
     private UserAdapter userAdapter;
 
     private TextView tvFarmerList;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +86,8 @@ public class FarmerList extends AppCompatActivity {
                 for(DataSnapshot child:dataSnapshot.getChildren())
                 {
                     Request r = child.getValue(Request.class);
-                    alF_id.add(r.getF_id());
+                    if(r.getStatus().equals("approved"))
+                        alF_id.add(r.getF_id());
                     Log.d("Cropfarmer",r.getF_id());
                 }
 

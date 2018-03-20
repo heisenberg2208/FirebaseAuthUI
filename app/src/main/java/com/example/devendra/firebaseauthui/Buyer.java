@@ -2,6 +2,8 @@ package com.example.devendra.firebaseauthui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,13 +25,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class Buyer extends AppCompatActivity {
 
     private TextView tvLon , tvLat;
     private Button btnSearchFarmer;
     private Spinner spnCrops;
+
+
 
 
     @Override
@@ -47,13 +54,14 @@ public class Buyer extends AppCompatActivity {
         String lon=sharedPreferences.getString("lon","");
         String lat  = sharedPreferences.getString("lat","");
 
-        tvLon.setText(lon);
-        tvLat.setText(lat);
+        String add = sharedPreferences.getString("add","");
+
+        tvLon.setText(add);
 
         String name = sharedPreferences.getString("user","");
 
         String f_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        User u = new User(f_id,name,lat,lon);
+        User u = new User(f_id,name,lat,lon,add);
         FirebaseDatabase.getInstance().getReference().child("Buyer").child(f_id).setValue(u).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

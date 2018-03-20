@@ -2,6 +2,7 @@ package com.example.devendra.firebaseauthui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Geocoder;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -34,7 +35,8 @@ public class UserAdapter extends ArrayAdapter<User> {
         User user = getItem(position);
 
         tvUserName.setText(user.getUname());
-        tvLatLon.setText(user.getUlat() + " "+ user.getUlon());
+
+        tvLatLon.setText(user.getAdd());
 
         return convertView;
     }
