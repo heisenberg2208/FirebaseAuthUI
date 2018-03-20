@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4db6ac</color>
-    <color name="colorPrimaryDark">#525252</color>
-    <color name="colorAccent">#2E7D32</color>
+    
     <color name="colorTitle">#ffffff</color>
+
+    <color name="colorPrimary">#48e6bb</color>
+    <color name="colorPrimaryDark">#48e6bb</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="backgroundcolor">#fcfcfc</color>
+    <color name="lightgray">#ededed</color>
+
+    <color name="orange">#ffb300</color>
+    <color name="yellow">#fff158</color>
+    <color name="green">#48e6bb</color>
+
+
+    <color name="colorPrimary1">#3F51B5</color>
+    <color name="colorPrimaryDark1">#292B3D</color>
+    <color name="greylight">#fafafa</color>
+    <color name="startblue">#09c6df</color>
+    <color name="endblue">#0bcce6</color>
+    <color name="colorAccent1">#ff4081</color>
+
+
     <color name="chat_item_background">#762962e8</color>
     <color name="chat_send_background">#4db6ac</color>
 

@@ -150,6 +150,7 @@ public class BuyerList extends AppCompatActivity {
         lvBuyers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("User","User Clicked");
                 User u = (User) lvBuyers.getItemAtPosition(i);
                 Intent in = new Intent(BuyerList.this , ChatActivity.class);
                 in.putExtra("farmer", FirebaseAuth.getInstance().getCurrentUser().getUid());

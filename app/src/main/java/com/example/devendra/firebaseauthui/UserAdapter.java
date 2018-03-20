@@ -34,9 +34,9 @@ public class UserAdapter extends ArrayAdapter<User> {
         TextView tvLatLon = (TextView) convertView.findViewById(R.id.tvLatLon);
         User user = getItem(position);
 
-        tvUserName.setText(user.getUname());
+        tvUserName.setText("Name: "+user.getUname());
 
-        tvLatLon.setText(user.getAdd());
+        tvLatLon.setText("Location: "+user.getAdd());
 
         return convertView;
     }

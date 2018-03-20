@@ -81,6 +81,13 @@ public class SellCrop extends AppCompatActivity {
         String add = sharedPreferences.getString("add","");
         Log.d("Debug","Got Lan Lot");
 
+
+        if(! request.equals(""))
+        {
+            Intent in = new Intent(SellCrop.this,Waiting.class);
+            startActivity(in);
+        }
+
         tvLoc.setText(add);
         Log.d("Debug","Got addr");
 
@@ -126,11 +133,7 @@ public class SellCrop extends AppCompatActivity {
 
 
 
-//        if(! request.equals(""))
-//        {
-//            Intent in = new Intent(SellCrop.this,Waiting.class);
-//            startActivity(in);
-//        }
+
 
 
 

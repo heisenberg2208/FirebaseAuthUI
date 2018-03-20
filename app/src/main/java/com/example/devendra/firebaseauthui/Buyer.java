@@ -43,9 +43,9 @@ public class Buyer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer);
-
-        tvLon = (TextView) findViewById(R.id.tvLon);
-        tvLat = (TextView)findViewById(R.id.tvLat);
+//
+//        tvLon = (TextView) findViewById(R.id.tvLon);
+//        tvLat = (TextView)findViewById(R.id.tvLat);
         btnSearchFarmer = (Button) findViewById(R.id.btnSearchFarmer);
 
         spnCrops = (Spinner) findViewById(R.id.spnCrops);
@@ -56,7 +56,7 @@ public class Buyer extends AppCompatActivity {
 
         String add = sharedPreferences.getString("add","");
 
-        tvLon.setText(add);
+//        tvLon.setText(add);
 
         String name = sharedPreferences.getString("user","");
 
