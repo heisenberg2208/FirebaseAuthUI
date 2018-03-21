@@ -62,7 +62,7 @@ public class GetUserName extends AppCompatActivity {
         String type = preferences.getString("type","");
         if(type.equals("farmer"))
         {
-            Intent i = new Intent(GetUserName.this , SellCrop.class);
+            Intent i = new Intent(GetUserName.this , FarmerPortal.class);
             startActivity(i);
             finish();
         }

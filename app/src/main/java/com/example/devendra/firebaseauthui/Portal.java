@@ -21,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -67,8 +68,8 @@ public class Portal extends AppCompatActivity
     }
 
 
-    TextView tvLatitude, tvLongitude, tvTime,tvAddress;
-    Button btnBuyer,btnFarmer,btnChat;
+    //TextView tvLatitude, tvLongitude, tvTime,tvAddress;
+    CardView btnBuyer,btnFarmer;
     static String lon;
     static String lat;
     static String add;
@@ -77,27 +78,27 @@ public class Portal extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portal);
 
-        tvLatitude = (TextView) findViewById(R.id.tvLatitude);
-        tvLongitude = (TextView) findViewById(R.id.tvLongitude);
-        tvTime = (TextView) findViewById(R.id.tvTime);
-        tvAddress = (TextView) findViewById(R.id.tvAddress);
-        btnBuyer = (Button) findViewById(R.id.btnBuyer);
-        btnFarmer = (Button) findViewById(R.id.btnFarmer);
-        btnChat  = (Button) findViewById(R.id.btnChat);
+        //tvLatitude = (TextView) findViewById(R.id.tvLatitude);
+        //tvLongitude = (TextView) findViewById(R.id.tvLongitude);
+        //tvTime = (TextView) findViewById(R.id.tvTime);
+        //tvAddress = (TextView) findViewById(R.id.tvAddress);
+        btnBuyer = (CardView) findViewById(R.id.btnBuyer);
+        btnFarmer = (CardView) findViewById(R.id.btnFarmer);
+        //btnChat  = (Button) findViewById(R.id.btnChat);
 
         getLocationUpdates();
 
         final SharedPreferences.Editor editor= getSharedPreferences("Mypref",MODE_PRIVATE).edit();
 
-        lon=tvLongitude.getText().toString();
-        if(lon.equals(""))
+        //lon=tvLongitude.getText().toString();
+        if(lon ==null ||lon.equals(""))
             lon="73.093948";
-        tvLongitude.setText(lon);
+        //tvLongitude.setText(lon);
 
-        lat =tvLatitude.getText().toString();
-        if(lat.equals(""))
+        //lat =tvLatitude.getText().toString();
+        if(lat==null||lat.equals(""))
             lat="19.209401";
-        tvLatitude.setText(lat);
+        //tvLatitude.setText(lat);
 
 
 
@@ -105,13 +106,13 @@ public class Portal extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Portal.this ,MainActivity.class);
-                String lon1=tvLongitude.getText().toString();
-                editor.putString("lon",lon1);
+                //String lon1=tvLongitude.getText().toString();
+                editor.putString("lon",lon);
 
 
-                String lat1 = tvLatitude.getText().toString();
-                editor.putString("lat",lat1);
-                String add = tvAddress.getText().toString();
+                //String lat1 = tvLatitude.getText().toString();
+                editor.putString("lat",lat);
+                //String add = tvAddress.getText().toString();
                 editor.putString("add",add);
 
                 editor.putString("type","farmer");
@@ -127,14 +128,14 @@ public class Portal extends AppCompatActivity
             public void onClick(View view) {
                 Intent i = new Intent(Portal.this , MainActivity.class);
 
-                String lon1=tvLongitude.getText().toString();
-                editor.putString("lon",lon1);
+                //String lon1=tvLongitude.getText().toString();
+                editor.putString("lon",lon);
 
 
-                String lat1 = tvLatitude.getText().toString();
-                editor.putString("lat",lat1);
+                //String lat1 = tvLatitude.getText().toString();
+                editor.putString("lat",lat);
 
-                String add = tvAddress.getText().toString();
+                //String add = tvAddress.getText().toString();
                 editor.putString("add",add);
                 editor.putString("type","buyer");
                 editor.commit();
@@ -143,26 +144,7 @@ public class Portal extends AppCompatActivity
             }
         });
 
-        btnChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Portal.this , ChatActivity.class);
 
-
-                String lon1=tvLongitude.getText().toString();
-                editor.putString("lon",lon1);
-
-                String lat1 = tvLatitude.getText().toString();
-                editor.putString("lat",lat1);
-
-                String add = tvAddress.getText().toString();
-                editor.putString("add",add);
-
-
-                startActivity(i);
-                finish();
-            }
-        });
     }
 
     private void getLocationUpdates() {
@@ -182,12 +164,15 @@ public class Portal extends AppCompatActivity
                     if (location != null) {
                         Log.d("Devendra", "location update " + location.getLatitude() + " " + location.getLatitude());
                         lat=String.valueOf(location.getLatitude());
-                        tvLatitude.setText(lat);
+                        //tvLatitude.setText(lat);
                         lon=String.valueOf(location.getLongitude());
 
-                        tvLongitude.setText(lon);
+                        //tvLongitude.setText(lon);
                         add = getLoc(lat,lon);
-                        tvAddress.setText(add);
+                        Toast.makeText(Portal.this, ""+ lon +" "+lat +" "+add, Toast.LENGTH_SHORT).show();
+
+                        Log.d("LOcation",""+ lon +" "+lat +" "+add);
+                        //tvAddress.setText(add);
                     }
                 }
             }, null);
