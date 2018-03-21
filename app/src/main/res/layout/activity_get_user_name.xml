@@ -1,21 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context="com.example.devendra.firebaseauthui.GetUserName"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/etGetName"-->
+        <!--android:hint="Enter your name here"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/btnSubmitName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Submit your name here"/>-->
+<!--</LinearLayout>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.devendra.firebaseauthui.GetUserName"
-    android:orientation="vertical">
+    >
 
-    <EditText
-        android:id="@+id/etGetName"
-        android:hint="Enter your name here"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:src="@drawable/agriculture_aromatic_biology_blur_botany_bush_601168"
+        android:scaleType="centerCrop"/>
+    <!--  <TextView
+          android:gravity="center"
+          android:layout_marginTop="50dp"
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:text="Welcome/स्वागत है"
+          android:textSize="50sp"
+          android:textColor="#ffffff"
+          android:textStyle="bold"/>
+  -->
 
-    <Button
-        android:id="@+id/btnSubmitName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit your name here"/>
-</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/rectangle"
+            android:layout_margin="15dp">
+            <TextView
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fill details/विवरण भरें"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="For your convenience/आपकी सुविधा के लिए"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="10dp"
+                />
+            <EditText
+                android:id="@+id/etGetName"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="  Name/नाम"
+                android:background="@drawable/rounded"
+                android:textSize="15sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="15dp"
+                android:drawableRight="@drawable/ic_keyboard_voice_black_45dp"
+                />
+
+            <Button
+                android:id="@+id/btnSubmitName"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Confirm/
+इसकी पुष्टी करें"
+                android:background="#09c6df"
+                android:layout_gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="36dp"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

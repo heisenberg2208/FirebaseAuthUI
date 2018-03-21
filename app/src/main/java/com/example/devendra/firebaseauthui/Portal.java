@@ -105,7 +105,14 @@ public class Portal extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Portal.this ,MainActivity.class);
+                String lon1=tvLongitude.getText().toString();
+                editor.putString("lon",lon1);
 
+
+                String lat1 = tvLatitude.getText().toString();
+                editor.putString("lat",lat1);
+                String add = tvAddress.getText().toString();
+                editor.putString("add",add);
 
                 editor.putString("type","farmer");
                 editor.commit();
