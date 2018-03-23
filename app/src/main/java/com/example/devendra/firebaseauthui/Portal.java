@@ -1,21 +1,15 @@
 package com.example.devendra.firebaseauthui;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.app.Service;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Criteria;
+
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
-import android.provider.Settings;
+
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,8 +18,8 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -33,12 +27,10 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -69,7 +61,7 @@ public class Portal extends AppCompatActivity
 
 
     //TextView tvLatitude, tvLongitude, tvTime,tvAddress;
-    CardView btnBuyer,btnFarmer;
+    Button btnBuyer,btnFarmer;
     static String lon;
     static String lat;
     static String add;
@@ -82,8 +74,8 @@ public class Portal extends AppCompatActivity
         //tvLongitude = (TextView) findViewById(R.id.tvLongitude);
         //tvTime = (TextView) findViewById(R.id.tvTime);
         //tvAddress = (TextView) findViewById(R.id.tvAddress);
-        btnBuyer = (CardView) findViewById(R.id.btnBuyer);
-        btnFarmer = (CardView) findViewById(R.id.btnFarmer);
+        btnBuyer = findViewById(R.id.btnBuyer);
+        btnFarmer =  findViewById(R.id.btnFarmer);
         //btnChat  = (Button) findViewById(R.id.btnChat);
 
         getLocationUpdates();
@@ -149,9 +141,9 @@ public class Portal extends AppCompatActivity
 
     private void getLocationUpdates() {
 
-        LocationRequest request = new LocationRequest();
-        request.setInterval(100);
-        request.setFastestInterval(50);
+        final LocationRequest request = new LocationRequest();
+//        request.setInterval(100);
+//        request.setFastestInterval(50);
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(this);
         int permission = ContextCompat.checkSelfPermission(this,
@@ -169,7 +161,17 @@ public class Portal extends AppCompatActivity
 
                         //tvLongitude.setText(lon);
                         add = getLoc(lat,lon);
-                        Toast.makeText(Portal.this, ""+ lon +" "+lat +" "+add, Toast.LENGTH_SHORT).show();
+                        if(lat !=null && lon!=null && add!=null)
+                        {
+                            if(! lat.equals("") && ! lon.equals("") && ! add.equals(""))
+                            {
+                                Toast.makeText(Portal.this, ""+ lon +" "+lat +" "+add, Toast.LENGTH_LONG).show();
+
+          //                      request.setInterval(0);
+            //                    request.setFastestInterval(0);
+                            }
+                        }
+
 
                         Log.d("LOcation",""+ lon +" "+lat +" "+add);
                         //tvAddress.setText(add);
